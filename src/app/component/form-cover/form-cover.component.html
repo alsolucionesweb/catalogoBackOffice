@@ -1,0 +1,70 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-button type="button" color="danger" (click)="dismiss()">
+        <ion-icon name="close-outline" size="2"></ion-icon>
+      </ion-button>
+      
+    </ion-buttons>
+    <ion-title>Crear Portada</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-card>
+    <ion-card-header>      
+        Por favor llene todos los campos y finaliza dando click en el botón <b>Crear portada</b>.      
+    </ion-card-header>
+    <ion-card-content>
+      <form autocomplete="off" [formGroup]="newCover" (ngSubmit)="createCover()">
+        <ion-grid>
+          <ion-row class="align-items-center">
+            <ion-col size-md="6" size="12">
+              <ion-title> IMAGEN PORTADA </ion-title>           
+              <div>
+                <img class="imgCover" [src]="imgPreview" />
+              </div>
+              <ion-item lines="none">
+                <ion-button class="green center" expand="block" size="default" (click)="f.click()">
+                  <ion-icon lazy="true" slot="start" name="image"></ion-icon>
+                  <ion-label slot="end">Seleccionar imagen</ion-label>
+                </ion-button>
+                  <input class="ion-hide" #f type="file" (change)="loadImageFromDevice($event)" id="file-input"
+                    accept="image/png, image/jpeg">
+              </ion-item>
+            </ion-col>
+            <ion-col size-md="6" size="12">              
+              <ion-item class="border-input mb-1">
+                <ion-label position="floating" > Nombre <span class="text-danger">*</span></ion-label>
+                <ion-input class="input-center" type="text" formControlName="name" required></ion-input>
+              </ion-item>
+              <ion-item class="border-input mb-1">
+                <ion-label position="stacked" > Tienda <span class="text-danger">*</span></ion-label>          
+                <ion-select [interfaceOptions]="tiendaOptions" interface="alert" placeholder="Seleccionar..." formControlName="idShop" required>
+                  <ion-select-option value="{{item.id}}" *ngFor="let item of shop">{{item.name}}</ion-select-option>
+                </ion-select>
+              </ion-item>
+              <ion-item class="border-input">
+                <ion-label position="stacked" > Estado <span class="text-danger">*</span></ion-label>          
+                <ion-select [interfaceOptions]="statusOptions" interface="alert" placeholder="Seleccionar..." formControlName="status" required>
+                  <ion-select-option value="1">Activo</ion-select-option>
+                  <ion-select-option value="0">Inactivo</ion-select-option>
+                </ion-select>
+              </ion-item>              
+            </ion-col>          
+            
+            <ion-col size-md="12" size="12">
+              <ion-icon slot="start" name="save-outline"></ion-icon>
+              <ion-button type="submit" expand="block" size="default" class="green" [disabled]="!newCover.valid || !fileImage">Crear portada</ion-button>
+            </ion-col>
+            
+          </ion-row>
+        </ion-grid>
+      
+      </form>
+    </ion-card-content>
+  </ion-card>
+  
+
+</ion-content>
+
+

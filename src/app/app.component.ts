@@ -1,18 +1,31 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { DataService } from './services/data.service';
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
+  
+  
+  showMenu = false;
+
   public appPages = [
-    { title: 'Inbox', url: '/folder/Inbox', icon: 'mail' },
-    { title: 'Outbox', url: '/folder/Outbox', icon: 'paper-plane' },
-    { title: 'Favorites', url: '/folder/Favorites', icon: 'heart' },
-    { title: 'Archived', url: '/folder/Archived', icon: 'archive' },
-    { title: 'Trash', url: '/folder/Trash', icon: 'trash' },
-    { title: 'Spam', url: '/folder/Spam', icon: 'warning' },
+    { title: 'Dashboard', url: '/folder/Dashboard', icon: 'grid' },
+    { title: 'Tiendas', url: '/folder/Tiendas', icon: 'storefront' },
+    { title: 'Productos', url: '/folder/Productos', icon: 'bag-handle' },
+    { title: 'Portadas', url: '/folder/Portadas', icon: 'image' },
   ];
-  public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
-  constructor() {}
+
+  public client = [
+    { title: 'Productos Cliente', url: '/folder/Productos Cliente', icon: 'bag-handle' },
+    { title: 'Catalogos', url: '/folder/Catálogos', icon: 'image' },
+  ];
+  
+  public labels = [
+    { title: 'Mi cuenta', url: '/folder/Mi Cuenta', icon: 'person-circle' },
+    { title: 'Salir', url: '/folder/Salir', icon: 'power' },
+  ];
+
+  constructor( public dataService: DataService) {}
 }

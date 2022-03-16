@@ -1,0 +1,79 @@
+<ion-card>
+  <ion-card-header>
+    <ion-list>
+      <ion-item>
+        <ion-button type="button" class="green" size="default" (click)="newCover()">
+          <ion-icon lazy="true" slot="start" name="image-outline"></ion-icon>
+          <ion-label slot="end">Nueva portada</ion-label>
+        </ion-button>
+      </ion-item>
+    </ion-list>
+  </ion-card-header>
+
+  <ion-card-content>    
+    
+    <ion-card>
+      <ion-card-content>
+        <ion-grid>
+          <ion-row class="filter-group">
+            <ion-col size-md="6">
+              <ion-item>
+                <ion-input
+                    inputmode="search"
+                    type="search"
+                    placeholder="Filtrar portadas"
+                  >
+                </ion-input>
+                <ion-icon name="search-outline" slot="start"></ion-icon>
+              </ion-item>
+              
+            </ion-col>
+            <ion-col size-md="2">
+              <ion-item>            
+                <ion-select [interfaceOptions]="tiendaOptions" interface="alert" placeholder="Tienda" name="Tienda">
+                  <ion-select-option value="{{item.id}}" *ngFor="let item of shop">{{item.name}}</ion-select-option>                 
+                </ion-select>
+                <ion-icon lazy="true" slot="start" name="storefront-outline"></ion-icon>
+              </ion-item>
+            </ion-col>  
+            <ion-col size-md="2">
+              <ion-item>            
+                <ion-select [interfaceOptions]="estadoOptions" interface="alert" placeholder="Estado" name="Estado">
+                  <ion-select-option value="0">Todos</ion-select-option>
+                  <ion-select-option value="1">Activo</ion-select-option>
+                  <ion-select-option value="2">Inactivo</ion-select-option>
+                </ion-select>
+              </ion-item>
+            </ion-col>        
+            <ion-col size-md="2">
+              <ion-item>
+                <ion-select placeholder="Ordenar">
+                  <ion-select-option value="1">Ascendente</ion-select-option>
+                  <ion-select-option value="2">Descendente</ion-select-option>
+                </ion-select>
+                <ion-icon name="repeat-outline" slot="start"></ion-icon>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+
+          
+          <ion-row class="align-items-center" *ngIf="covers == ''">
+            <ion-col size-md="12" size="12" text-center>Aún no hay tiendas de <b>Shopify</b> creadas</ion-col>
+          </ion-row>
+
+          <ion-row class="align-items-center" >            
+            <ion-col size-md="3" size="12" *ngFor="let item of covers">
+              <img src="{{urlImage}}/cover/{{item.image}}" class="imgCover"/>              
+              <ion-buttons>
+                <ion-button type="button" slot="start">Desactivar</ion-button>
+                <ion-button type="button" slot="end">Eliminar</ion-button>
+              </ion-buttons>
+            </ion-col>            
+          </ion-row>
+        </ion-grid>  
+
+      </ion-card-content>
+    </ion-card>
+      
+  </ion-card-content>
+</ion-card>

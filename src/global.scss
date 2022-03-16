@@ -24,3 +24,73 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+@import '~@swimlane/ngx-datatable/index.css';
+@import '~@swimlane/ngx-datatable/themes/material.scss';
+@import '~@swimlane/ngx-datatable/assets/icons.css';
+
+ion-button, ion-title {
+    letter-spacing: normal;
+}
+
+.first-row{
+    border-bottom: 1px solid gray;
+    margin-bottom: 1rem;
+    color: black;
+    font-weight: 500;
+    font-size: 1rem;
+}
+.align-items-center{
+    align-items: center;
+}
+ion-button {
+    text-transform:none;
+}
+.green {
+    --background: #00835E !important;
+    //background: #00835E !important
+}
+.statusVisible {
+    background: #9DECCE;
+    border-radius: 50px;
+    width: 70%;
+    text-align: center;
+    padding: 5px;
+    color: #000000;
+}
+.statusNoVisible {
+    background: #EC9D9D;
+    border-radius: 50px;
+    width: 70%;
+    text-align: center;
+    padding: 5px;
+    color: #000000;
+}
+
+.filter-group{
+    margin-bottom: 1rem;
+    ion-item {
+        border: solid 1px;
+        border-radius: 10px;
+    }
+}
+
+.mdlShop{
+    --width: 80%;
+    --height: 80%;
+}
+.center{
+    margin: 5px auto;
+}
+.mb-1{
+    margin-bottom: 10px;
+}
+.border-input{
+    border: solid 1px lightgray;
+    border-radius: 10px;
+}
+@media (prefers-color-scheme: dark){
+    .first-row {
+        color: #fff
+    }
+}
