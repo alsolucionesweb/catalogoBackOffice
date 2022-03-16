@@ -16,19 +16,7 @@
               <ion-icon align-self="center" [ios]="p.icon + '-outline'" [md]="p.icon + '-outline'"></ion-icon>
             </ion-item>
           </ion-menu-toggle>
-        </ion-list>
-
-        <ion-list id="inbox-list">
-          <ion-list-header>
-            VENDEDOR
-          </ion-list-header>
-
-          <ion-menu-toggle auto-hide="false" *ngFor="let p of client; let i = index">
-            <ion-item align-self="center" routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false" routerLinkActive="selected">
-              <ion-icon align-self="center" [ios]="p.icon + '-outline'" [md]="p.icon + '-outline'"></ion-icon>
-            </ion-item>
-          </ion-menu-toggle>
-        </ion-list>
+        </ion-list>        
 
         <ion-list id="labels-list">
           <ion-item align-self="center" routerDirection="root" [routerLink]="[label.url]" *ngFor="let label of labels" lines="none" detail="false" routerLinkActive="selected">
