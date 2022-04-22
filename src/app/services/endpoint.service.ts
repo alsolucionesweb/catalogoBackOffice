@@ -17,4 +17,7 @@ export class EndpointService {
   coverCreate: any = this.urlDev+"cover/create";
   producByShop:any = this.urlDev+"product/shop/";
   login:any = this.urlDev+"user/login";
+  createProduct: any = this.urlDev+"product/create";
+  banners: any = this.urlDev+"/banners/all";
+  createBanners:any = this.urlDev+"/banners/create";
 }

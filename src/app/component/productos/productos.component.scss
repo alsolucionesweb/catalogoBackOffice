@@ -9,3 +9,13 @@ img.imgProduct {
     border-radius: 10px;
     border: solid 1px lightgray;
 }
+.current{
+    color:red !important;
+    --background: #fff !important;
+}
+
+.paginado{
+    ion-col{
+        text-align: center;
+    }
+}

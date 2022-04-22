@@ -12,35 +12,53 @@
 <ion-content>
   <ion-card>
     <ion-card-content>
-      <ion-grid *ngIf="shop.platform == 'Wordpress'">
-        <ion-row class="align-center">
-          <ion-col class="col-product" size-md="6" size="12">            
-            <img src="{{product.featured_src}}" />
-            <h2>{{ product.title }}</h2>
-          </ion-col>
-          <ion-col class="col-product" size-md="6" size="12">    
-            <div [innerHTML]=product.description></div>        
-            
-          </ion-col>
-          <ion-col size-md="12" size="12">
-            
-            <ion-button class="green" expand="block" size="default" (click)="f.click()">
-              <ion-icon lazy="true" slot="start" name="image"></ion-icon>
-              <ion-label slot="end">Seleccionar portada</ion-label>
-            </ion-button>
-              <input class="ion-hide" #f type="file" (change)="loadImageFromDevice($event)" id="file-input"
-                accept="image/png, image/jpeg">    
-            
-          </ion-col>
-          <ion-col size-md="12" size="12" *ngIf="previewShow">
-            <img class="imgPreviewPage" [src]="imgPreview" />
-            <ion-button class="green" expand="block" size="default" (click)="alert('Guadado')">
-              <ion-icon lazy="true" slot="start" name="checkmark-outline"></ion-icon>
-              <ion-label slot="end">Guardar</ion-label>
-            </ion-button>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
+      <form autocomplete="off" [formGroup]="newPage" (ngSubmit)="createProduct()">
+        <ion-grid *ngIf="shop.platform == 'Wordpress'">
+          <ion-row class="align-center">
+            <ion-col class="col-product" size-md="6" size="12">
+                <ion-slides pager="true" scrollbar="true" [options]="slideOpts">
+                  <ion-slide *ngFor="let item of product.images">
+                    <img src="{{item.src}}" />
+                  </ion-slide>
+                </ion-slides>
+              
+              <h2>{{ product.title }}</h2>
+            </ion-col>
+            <ion-col class="col-product" size-md="6" size="12">    
+              <div [innerHTML]=product.description></div>        
+              
+            </ion-col>
+            <ion-col size-md="12" size="12">
+              
+
+              
+              <ion-item>
+                <ion-label position="floating">Porcentaje de comisión<span class="text-danger">*</span></ion-label>
+                <ion-input type="number" [(ngModel)]="comision" formControlName="comision" maximum="100" minimum="0" max="100" min="0">
+                  % 
+                </ion-input>
+              </ion-item>
+            </ion-col>
+            <ion-col size-md="12" size="12">
+              
+              <ion-button class="green" expand="block" size="default" (click)="f.click()" [disabled]="comision == null">
+                <ion-icon lazy="true" slot="start" name="image"></ion-icon>
+                <ion-label slot="end">Seleccionar portada</ion-label>
+              </ion-button>
+                <input class="ion-hide" #f type="file" (change)="loadImageFromDevice($event)" id="file-input"
+                  accept="image/png, image/jpeg">    
+              
+            </ion-col>
+            <ion-col size-md="12" size="12" *ngIf="previewShow">
+              <img class="imgPreviewPage" [src]="imgPreview" />
+              <ion-button type="submit" [disabled]="fileImage == '' || !newPage.valid " class="green" expand="block" size="default">
+                <ion-icon lazy="true" slot="start" name="checkmark-outline"></ion-icon>
+                <ion-label slot="end">Guardar</ion-label>
+              </ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </form>
     </ion-card-content>
   </ion-card>
 </ion-content>

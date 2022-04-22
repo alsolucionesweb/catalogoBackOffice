@@ -4,13 +4,13 @@ import { LoadingController, ModalController } from '@ionic/angular';
 import { RestApiService } from 'src/app/services/rest-api.service';
 
 @Component({
-  selector: 'app-form-cover',
-  templateUrl: './form-cover.component.html',
-  styleUrls: ['./form-cover.component.scss'],
+  selector: 'app-form-banners',
+  templateUrl: './form-banners.component.html',
+  styleUrls: ['./form-banners.component.scss'],
 })
-export class FormCoverComponent implements OnInit {
+export class FormBannersComponent implements OnInit {
 
-  private newCover : FormGroup;
+  private newBanner : FormGroup;
   imgPreview:any = "/assets/images/imgPreview.png";
   imgBackCover:any = "/assets/images/imgPreview.png";
   fileImage:any = false;
@@ -31,8 +31,7 @@ export class FormCoverComponent implements OnInit {
     private api: RestApiService,
     private loading: LoadingController,
   ) { 
-    this.newCover = this.formBuilder.group({
-      name: ['', Validators.required],
+    this.newBanner = this.formBuilder.group({
       idShop: ['', Validators.required], 
       status: ['', Validators.required],   
     });
@@ -54,27 +53,25 @@ export class FormCoverComponent implements OnInit {
     loading.dismiss();
   }
 
-  async createCover(){    
+  async createBanner(){    
 
     const loading = await this.loading.create({
-      message: 'Cargando Portadas'
+      message: 'Creando Banner'
     });
     await loading.present();
 
-    console.log("NUEVA PORTADA: ", this.newCover.value);
+    console.log("NUEVO BANNER: ", this.newBanner.value);
     console.log("ARCHIVO: ", this.fileImage);
 
     var data = new FormData();
     data.append("image", this.fileImage);
-    data.append("backcover", this.fileBackCover);
-    data.append("name", this.newCover.value.name);
-    data.append("idShop", this.newCover.value.idShop);
-    data.append("status", this.newCover.value.status);
+    data.append("idShop", this.newBanner.value.idShop);
+    data.append("status", this.newBanner.value.status);
     
 
-    const cover = await this.api.createCover(data);
-    console.log("GUARDADO", cover);
-    this.created = cover.success;  
+    const banner = await this.api.createBanner(data);
+    console.log("GUARDADO", banner);
+    this.created = banner.success;  
     loading.dismiss();
     this.dismiss();
   }
@@ -93,22 +90,6 @@ export class FormCoverComponent implements OnInit {
       this.imgPreview = e.target.result;
     }    
     
-
-  }
-
-  loadImageFromBackCover(e){
-    console.log("ARCHIVO: ", e.target.files);
-    const file = e.target.files[0];
-    this.fileBackCover = file;
-    //this.imgPreview = URL.createObjectURL(file);
-    
-    const reader = new FileReader();
-
-    reader.readAsDataURL(file);
-
-    reader.onload = (e) => { // called once readAsDataURL is completed
-      this.imgBackCover = e.target.result;
-    }    
 
   }
 

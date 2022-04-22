@@ -18,6 +18,8 @@ import { MicuentaComponent } from '../component/micuenta/micuenta.component';
 import { FormPageProductComponent } from '../component/form-page-product/form-page-product.component';
 import { FormShopComponent } from '../component/form-shop/form-shop.component';
 import { FormCoverComponent } from '../component/form-cover/form-cover.component';
+import { BannersComponent } from '../component/banners/banners.component';
+import { FormBannersComponent } from '../component/form-banners/form-banners.component';
 
 @NgModule({
   imports: [
@@ -34,9 +36,11 @@ import { FormCoverComponent } from '../component/form-cover/form-cover.component
     ProductosComponent,
     PortadasComponent,
     MicuentaComponent,
+    BannersComponent,
     FormPageProductComponent,
     FormShopComponent,
-    FormCoverComponent
+    FormCoverComponent,
+    FormBannersComponent
     ]
 })
 export class FolderPageModule {}

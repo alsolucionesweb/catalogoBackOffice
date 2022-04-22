@@ -13,7 +13,9 @@ export class FormShopComponent implements OnInit {
   private newShop : FormGroup;
   xshopifyaccess:any = "";
   imgPreview:any = "/assets/images/imgPreview.png";
+  imgLogo:any = "/assets/images/imgPreview.png";
   fileImage:any = false;
+  fileLogo:any = false;
   created:any;
 
   platformOptions: any = {
@@ -35,6 +37,11 @@ export class FormShopComponent implements OnInit {
       urlShop: ['', Validators.required],
       platform: ['', Validators.required],
       domain: ['', Validators.required],
+      subDomain: ['', Validators.required],
+      domainPostAffiliate: ['', Validators.required],
+      userPostAffiliate: ['', Validators.required],
+      passwordPostAffiliate: ['', Validators.required],
+      urlSignUp: ['', Validators.required],
       apiKey: ['', Validators.required],
       secretKey: ['', Validators.required],   
       status: ['', Validators.required],   
@@ -59,6 +66,7 @@ export class FormShopComponent implements OnInit {
 
     var data = new FormData();
     data.append("image", this.fileImage);
+    data.append("logo", this.fileLogo);
     data.append("name", this.newShop.value.name);
     data.append("urlShop", this.newShop.value.urlShop);
     data.append("platform", this.newShop.value.platform);
@@ -66,6 +74,11 @@ export class FormShopComponent implements OnInit {
     data.append("domain", this.newShop.value.domain);
     data.append("apiKey", this.newShop.value.apiKey);
     data.append("secretKey", this.newShop.value.secretKey);
+    data.append("domainPostAffiliate", this.newShop.value.domainPostAffiliate);
+    data.append("userPostAffiliate", this.newShop.value.userPostAffiliate);
+    data.append("passwordPostAffiliate", this.newShop.value.passwordPostAffiliate);
+    data.append("urlSignUp", this.newShop.value.urlSignUp);
+    data.append("subDomain", this.newShop.value.subDomain);
     if(this.newShop.value.platform == "Shopify"){      
       data.append("xshopifyaccess", this.xshopifyaccess);
     }
@@ -91,6 +104,22 @@ export class FormShopComponent implements OnInit {
       this.imgPreview = e.target.result;
     }    
     
+
+  }
+
+  loadImageFromLogo(e){
+    console.log("ARCHIVO: ", e.target.files);
+    const file = e.target.files[0];
+    this.fileLogo = file;
+    //this.imgPreview = URL.createObjectURL(file);
+    
+    const reader = new FileReader();
+
+    reader.readAsDataURL(file);
+
+    reader.onload = (e) => { // called once readAsDataURL is completed
+      this.imgLogo = e.target.result;
+    }    
 
   }
 

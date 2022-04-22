@@ -6,7 +6,7 @@ import { EndpointService } from './endpoint.service';
 })
 export class RestApiService {  
 
-  token:any = "";
+  token:any = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiQWxlamFuZHJvIExvbmRvbm8iLCJ1c2VyIjoxLCJyb2wiOiJBZG1pbiIsImlhdCI6MTY0OTE2MTEyMH0.gblrzyEsG1_riRrXrzVGcN338diGC1CpJlQmp43Z11E";
 
   constructor(
     private endpoint:EndpointService
@@ -18,8 +18,8 @@ export class RestApiService {
     }).then(resp => resp.json());
   }
 
-  getProductByShop = async(id) => {
-    return await fetch(this.endpoint.producByShop+id,{
+  getProductByShop = async(id, pag, cant) => {
+    return await fetch(this.endpoint.producByShop+id+'/'+pag+'/'+cant,{
       method: "GET"
     }).then(resp => resp.json());
   }
@@ -39,6 +39,12 @@ export class RestApiService {
     }).then(resp => resp.json());
   }
 
+  getBannersAll = async() => {
+    return await fetch(this.endpoint.banners,{
+      method: "GET"
+    }).then(resp => resp.json());
+  }
+
   createShop = async(body) => {
 
     var coockiex = await this.coockie();
@@ -54,11 +60,41 @@ export class RestApiService {
     }).then(resp => resp.json());
   }
 
+  createBanner = async(body) => {
+
+    const coockiex = await this.coockie();
+
+    return await fetch(this.endpoint.createBanners,{
+      method: "POST",
+      body: body,
+      redirect: 'follow',
+      headers: {
+        token: this.token,
+        Cookie: coockiex
+      }
+    }).then(resp => resp.json());
+  }
+
   createCover = async(body) => {
 
     const coockiex = await this.coockie();
 
     return await fetch(this.endpoint.coverCreate,{
+      method: "POST",
+      body: body,
+      redirect: 'follow',
+      headers: {
+        token: this.token,
+        Cookie: coockiex
+      }
+    }).then(resp => resp.json());
+  }
+
+  createProduct = async(body) => {
+
+    const coockiex = await this.coockie();
+
+    return await fetch(this.endpoint.createProduct,{
       method: "POST",
       body: body,
       redirect: 'follow',

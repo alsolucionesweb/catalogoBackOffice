@@ -15,6 +15,7 @@ export class AppComponent {
     { title: 'Tiendas', url: '/folder/Tiendas', icon: 'storefront' },
     { title: 'Productos', url: '/folder/Productos', icon: 'bag-handle' },
     { title: 'Portadas', url: '/folder/Portadas', icon: 'image' },
+    { title: 'Banners', url: '/folder/Banners', icon: 'albums' },
   ];
 
   public client = [

@@ -12,6 +12,98 @@
 
   <ion-card-content>
     
+    
+
+    <ion-title>Wordpress</ion-title>
+    
+    <ion-card>
+      <ion-card-content>
+        <ion-grid>
+          <ion-row class="filter-group">
+            <ion-col size-md="6">
+              <ion-item>
+                <ion-input
+                    inputmode="search"
+                    type="search"
+                    placeholder="Filtrar tiendas"
+                  >
+                </ion-input>
+                <ion-icon name="search-outline" slot="start"></ion-icon>
+              </ion-item>
+              
+            </ion-col>
+            <ion-col size-md="2">
+              <ion-item>            
+                <ion-select [interfaceOptions]="estadoOptions" interface="alert" placeholder="Estado" name="Estado">
+                  <ion-select-option value="0">Todos</ion-select-option>
+                  <ion-select-option value="1">Activo</ion-select-option>
+                  <ion-select-option value="2">Inactivo</ion-select-option>
+                </ion-select>
+              </ion-item>
+            </ion-col>        
+            <ion-col size-md="2">
+              <ion-item>
+                <ion-select placeholder="Ordenar">
+                  <ion-select-option value="1">Ascendente</ion-select-option>
+                  <ion-select-option value="2">Descendente</ion-select-option>
+                </ion-select>
+                <ion-icon name="repeat-outline" slot="start"></ion-icon>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row class="first-row">
+            <ion-col size-md="1" size="12">
+              <ion-checkbox color="primary"></ion-checkbox>
+            </ion-col>      
+            <ion-col size-md="5" size="12">
+              Tienda
+            </ion-col>
+            <ion-col size-md="2" size="12">
+              Estado
+            </ion-col>
+            <ion-col size-md="3" size="12">
+              Keys
+            </ion-col>
+            <ion-col size-md="1" size="12">
+              Editar
+            </ion-col>
+          </ion-row>
+          <ion-row class="align-items-center" *ngIf="shopWordpress == ''">
+            <ion-col size-md="12" size="12" text-center>Aún no hay tiendas de <b>Wordpress</b> creadas</ion-col>
+          </ion-row>
+          <ion-row class="align-items-center" *ngFor="let item of shopWordpress">
+            <ion-col size-md="1" size="12">
+              <ion-checkbox color="primary"></ion-checkbox>
+            </ion-col>
+            <ion-col size-md="1" size="12">
+              <img src="{{urlImage}}/shop/{{item.image}}" class="imgShop"/>
+            </ion-col>
+            <ion-col size-md="4" size="12">              
+              <div class="titleShop">{{item.name}}</div>              
+              <div><b>URL TIENDA: </b><a href="{{item.urlShop}}" target="_blank">{{item.urlShop}}</a></div>
+            </ion-col>
+            <ion-col size-md="2" size="12">
+                <div *ngIf="item.status == true" class="statusVisible">Activo</div>
+                <div *ngIf="item.status == false" class="statusNoVisible">Inactivo</div>
+            </ion-col>
+            <ion-col size-md="3" size="12">              
+              <div *ngIf="item.apiKey == '' || item.secretKey == ''">
+                Debes generar un <b>ApiKey</b> y un <b>SecretKey</b> para poder sincronizar los productos de la tienda.
+              </div>
+              <div *ngIf="item.apiKey != ''"><b>API_KEY: </b>{{item.apiKey}}</div>
+              <div *ngIf="item.secretKey != ''"><b>API_SECRET_KEY: </b>{{item.secretKey}}</div>
+            </ion-col>
+            <ion-col size-md="1" size="12">
+              <ion-button type="button" color="warning" (click)="presentToastWithOptions('close-circle-outline','No se pudo crear la tienda, intentelo más tarde', 'danger')">
+                <ion-icon name="create-outline"></ion-icon>
+              </ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>  
+
+      </ion-card-content>
+    </ion-card>
+
     <ion-title>Shopify</ion-title>
     
     <ion-card>
@@ -100,96 +192,6 @@
             </ion-col>
             <ion-col size-md="1" size="12">
               <ion-button type="button" color="warning" (click)="presentToastWithOptions('checkmark-outline','Guadado con éxito', 'success')">
-                <ion-icon name="create-outline"></ion-icon>
-              </ion-button>
-            </ion-col>
-          </ion-row>
-        </ion-grid>  
-
-      </ion-card-content>
-    </ion-card>
-
-    <ion-title>Wordpress</ion-title>
-    
-    <ion-card>
-      <ion-card-content>
-        <ion-grid>
-          <ion-row class="filter-group">
-            <ion-col size-md="6">
-              <ion-item>
-                <ion-input
-                    inputmode="search"
-                    type="search"
-                    placeholder="Filtrar tiendas"
-                  >
-                </ion-input>
-                <ion-icon name="search-outline" slot="start"></ion-icon>
-              </ion-item>
-              
-            </ion-col>
-            <ion-col size-md="2">
-              <ion-item>            
-                <ion-select [interfaceOptions]="estadoOptions" interface="alert" placeholder="Estado" name="Estado">
-                  <ion-select-option value="0">Todos</ion-select-option>
-                  <ion-select-option value="1">Activo</ion-select-option>
-                  <ion-select-option value="2">Inactivo</ion-select-option>
-                </ion-select>
-              </ion-item>
-            </ion-col>        
-            <ion-col size-md="2">
-              <ion-item>
-                <ion-select placeholder="Ordenar">
-                  <ion-select-option value="1">Ascendente</ion-select-option>
-                  <ion-select-option value="2">Descendente</ion-select-option>
-                </ion-select>
-                <ion-icon name="repeat-outline" slot="start"></ion-icon>
-              </ion-item>
-            </ion-col>
-          </ion-row>
-          <ion-row class="first-row">
-            <ion-col size-md="1" size="12">
-              <ion-checkbox color="primary"></ion-checkbox>
-            </ion-col>      
-            <ion-col size-md="5" size="12">
-              Tienda
-            </ion-col>
-            <ion-col size-md="2" size="12">
-              Estado
-            </ion-col>
-            <ion-col size-md="3" size="12">
-              Keys
-            </ion-col>
-            <ion-col size-md="1" size="12">
-              Editar
-            </ion-col>
-          </ion-row>
-          <ion-row class="align-items-center" *ngIf="shopWordpress == ''">
-            <ion-col size-md="12" size="12" text-center>Aún no hay tiendas de <b>Wordpress</b> creadas</ion-col>
-          </ion-row>
-          <ion-row class="align-items-center" *ngFor="let item of shopWordpress">
-            <ion-col size-md="1" size="12">
-              <ion-checkbox color="primary"></ion-checkbox>
-            </ion-col>
-            <ion-col size-md="1" size="12">
-              <img src="{{urlImage}}/shop/{{item.image}}" class="imgShop"/>
-            </ion-col>
-            <ion-col size-md="4" size="12">              
-              <div class="titleShop">{{item.name}}</div>              
-              <div><b>URL TIENDA: </b><a href="{{item.urlShop}}" target="_blank">{{item.urlShop}}</a></div>
-            </ion-col>
-            <ion-col size-md="2" size="12">
-                <div *ngIf="item.status == true" class="statusVisible">Activo</div>
-                <div *ngIf="item.status == false" class="statusNoVisible">Inactivo</div>
-            </ion-col>
-            <ion-col size-md="3" size="12">              
-              <div *ngIf="item.apiKey == '' || item.secretKey == ''">
-                Debes generar un <b>ApiKey</b> y un <b>SecretKey</b> para poder sincronizar los productos de la tienda.
-              </div>
-              <div *ngIf="item.apiKey != ''"><b>API_KEY: </b>{{item.apiKey}}</div>
-              <div *ngIf="item.secretKey != ''"><b>API_SECRET_KEY: </b>{{item.secretKey}}</div>
-            </ion-col>
-            <ion-col size-md="1" size="12">
-              <ion-button type="button" color="warning" (click)="presentToastWithOptions('close-circle-outline','No se pudo crear la tienda, intentelo más tarde', 'danger')">
                 <ion-icon name="create-outline"></ion-icon>
               </ion-button>
             </ion-col>

@@ -21,7 +21,13 @@ export class ProductosComponent implements OnInit {
   shop:any = [];
   shopIn:any = [];
   shopSelect:any;
+  cantPages: any = [];
+  currentPage:any;
+  cant:any;
 
+  cantOptions: any = {
+    header: 'Cantidad'
+  };
   estadoOptions: any = {
     header: 'Estado'
   };
@@ -36,7 +42,7 @@ export class ProductosComponent implements OnInit {
     private endpoint: EndpointService
   ) { 
     this.urlImage = this.endpoint.images;
-    
+    this.cant = 10;
     
     //this.loadProduct();
     this.loadShop();
@@ -44,6 +50,25 @@ export class ProductosComponent implements OnInit {
   }
 
   ngOnInit() {}
+
+  changeCant(e){    
+    this.cant = e.target.value;
+    this.currentPage = 1;
+    this.loadProduct(this.currentPage);
+
+  }
+
+  async last(){
+    if(this.currentPage>1){
+      this.loadProduct(--this.currentPage);
+    }
+  }
+  async next(){
+    console.log("CURRENT PAGE: ",this.currentPage, "OLD PAGE: ", this.cantPages.length )
+    if(this.currentPage<this.cantPages.length){
+      this.loadProduct(++this.currentPage);
+    }
+  }
 
   async loadShop(){
 
@@ -60,7 +85,7 @@ export class ProductosComponent implements OnInit {
   }
 
 
-  async loadProduct(){
+  async loadProduct(pag){
 
     var id = this.shopSelect;
     this.shopIn = this.shop.filter(x => x.id == id)[0];
@@ -71,7 +96,7 @@ export class ProductosComponent implements OnInit {
     });
     await loading.present();
 
-    const product = await this.api.getProductByShop(id);
+    const product = await this.api.getProductByShop(id, pag, this.cant);
     
     this.products = product.data.product;
     this.pages = product.data.pages;
@@ -80,6 +105,22 @@ export class ProductosComponent implements OnInit {
     this.concatenado = this.prueba(this.pages, this.products, "idWebShop", "id");
     console.log("PRODUCTOS CARGADOS: ", this.products);
     console.log("CONCATENADO: ",this.concatenado);
+
+    var cantPage = product.data.cantPages;
+    this.cantPages = [];
+    this.currentPage = parseInt(product.data.currentPage);
+
+    for (let index = 1; index < parseInt(cantPage)+1; index++) {
+      var color = "light";
+      if(index == this.currentPage)
+        color = "medium";
+
+      var body = {
+        page:index,
+        color: color
+      }
+      this.cantPages.push(body);
+    }
     loading.dismiss();
   }
 
@@ -107,8 +148,11 @@ export class ProductosComponent implements OnInit {
       }
     });
 
-    modal.onDidDismiss().then((data)=>{
-      this.loadProduct();
+    modal.onDidDismiss().then((data:any)=>{
+      console.log("RESPUESTA: ", data);
+      if(data.data.dismissed){
+          this.loadProduct(1);
+        }
       });
 
     return await modal.present();

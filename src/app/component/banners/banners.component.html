@@ -2,9 +2,9 @@
   <ion-card-header>
     <ion-list>
       <ion-item>
-        <ion-button type="button" class="green" size="default" (click)="newCover()">
+        <ion-button type="button" class="green" size="default" (click)="newBanner()">
           <ion-icon lazy="true" slot="start" name="image-outline"></ion-icon>
-          <ion-label slot="end">Nueva portada</ion-label>
+          <ion-label slot="end">Nuevo banner</ion-label>
         </ion-button>
       </ion-item>
     </ion-list>
@@ -21,7 +21,7 @@
                 <ion-input
                     inputmode="search"
                     type="search"
-                    placeholder="Filtrar portadas"
+                    placeholder="Filtrar banners"
                   >
                 </ion-input>
                 <ion-icon name="search-outline" slot="start"></ion-icon>
@@ -57,16 +57,15 @@
           </ion-row>
 
           
-          <ion-row class="align-items-center" *ngIf="covers == ''">
-            <ion-col size-md="12" size="12" text-center>Aún no hay tiendas de <b>Shopify</b> creadas</ion-col>
+          <ion-row class="align-items-center" *ngIf="banners == ''">
+            <ion-col size-md="12" size="12" text-center>Aún no hay banners creados</ion-col>
           </ion-row>
 
           <ion-row class="align-items-center" >            
-            <ion-col size-md="3" size="12" *ngFor="let item of covers">
+            <ion-col size-md="3" size="12" *ngFor="let item of banners">
               <div class="covers">
                 <h4><b>{{item.name}}</b></h4>
-                <img src="{{urlImage}}/cover/{{item.image}}" class="imgCover"/>   
-                <img src="{{urlImage}}/backcover/{{item.coimage}}" class="imgCover"/>              
+                <img src="{{urlImage}}/banners/{{item.image}}" class="imgCover"/>            
                 <div>
                   <ion-button *ngIf="item.status" size="block" type="button" slot="start" color="medium">Desactivar</ion-button>
                   <ion-button *ngIf="!item.status" size="block" type="button" slot="start" color="success">Activar</ion-button>

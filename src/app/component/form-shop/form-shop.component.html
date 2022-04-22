@@ -32,15 +32,39 @@
                     accept="image/png, image/jpeg">
               </ion-item>
             </ion-col>
-            <ion-col size-md="6" size="12">              
-              <ion-item class="border-input mb-1">
+            <ion-col size-md="6" size="12">
+              <ion-title> Logo </ion-title>           
+              <div>
+                <img class="imgShop" [src]="imgLogo" />
+              </div>
+              <ion-item>
+                <ion-button class="green center" expand="block" size="default" (click)="l.click()">
+                  <ion-icon lazy="true" slot="start" name="image"></ion-icon>
+                  <ion-label slot="end">Seleccionar logo</ion-label>
+                </ion-button>
+                  <input class="ion-hide" #l type="file" (change)="loadImageFromLogo($event)" id="file-logo"
+                    accept="image/png, image/jpeg">
+              </ion-item>
+            </ion-col>
+            <ion-col size-md="6" size="12">
+              <ion-item class="border-input">
                 <ion-label position="floating" > Nombre <span class="text-danger">*</span></ion-label>
                 <ion-input class="input-center" type="text" formControlName="name" required></ion-input>
-              </ion-item>
-              <ion-item class="border-input mb-1">
+              </ion-item>              
+            </ion-col>
+            <ion-col size-md="6" size="12">
+              <ion-item class="border-input">
                 <ion-label position="floating" > Dominio <span class="text-danger">*</span></ion-label>
                 <ion-input class="input-center" type="text" formControlName="domain" required></ion-input>
-              </ion-item> 
+              </ion-item>              
+            </ion-col>
+            <ion-col size-md="6" size="12">
+              <ion-item class="border-input">
+                <ion-label position="floating" > SubDominio <span class="text-danger">*</span></ion-label>
+                <ion-input class="input-center" type="text" formControlName="subDomain" required></ion-input>
+              </ion-item>              
+            </ion-col>
+            <ion-col size-md="6" size="12">
               <ion-item class="border-input">
                 <ion-label position="stacked" > Url Tienda <span class="text-danger">*</span></ion-label>
                 <ion-input class="input-center" type="text" formControlName="urlShop" placeholder="Ej: https://tienda.com/" required></ion-input>
@@ -82,11 +106,34 @@
                 <ion-input class="input-center" type="text" [(ngModel)]="xshopifyaccess" required></ion-input>
               </ion-item> 
             </ion-col>
+            <ion-col size-md="6" size="12">
+              <ion-item class="border-input">
+                <ion-label position="floating" > Url PostAffiliate <span class="text-danger">*</span></ion-label>
+                <ion-input class="input-center" type="text" formControlName="domainPostAffiliate" placeholder="Ej: https://tienda.postaffiliatepro.com/" required></ion-input>
+              </ion-item>              
+            </ion-col>
+            <ion-col size-md="6" size="12">
+              <ion-item class="border-input">
+                <ion-label position="floating" > Url Registro PostAffiliate <span class="text-danger">*</span></ion-label>
+                <ion-input class="input-center" type="text" formControlName="urlSignUp" placeholder="Ej: https://tienda.postaffiliatepro.com/affiliate/signup/" required></ion-input>
+              </ion-item>              
+            </ion-col>
+            <ion-col size-md="6" size="12">
+              <ion-item class="border-input">
+                <ion-label position="floating" > Usuario PostAffiliate <span class="text-danger">*</span></ion-label>
+                <ion-input class="input-center" type="text" formControlName="userPostAffiliate" required></ion-input>
+              </ion-item>              
+            </ion-col>
+            <ion-col size-md="6" size="12">
+              <ion-item class="border-input">
+                <ion-label position="floating" > Contraseña PostAffiliate <span class="text-danger">*</span></ion-label>
+                <ion-input class="input-center" type="password" formControlName="passwordPostAffiliate" required></ion-input>
+              </ion-item>              
+            </ion-col>
             <ion-col size-md="12" size="12">
               <ion-icon slot="start" name="save-outline"></ion-icon>
-              <ion-button type="submit" expand="block" size="default" class="green" [disabled]="!newShop.valid || !fileImage">Crear tienda</ion-button>
-            </ion-col>
-            
+              <ion-button type="submit" expand="block" size="default" class="green" [disabled]="!newShop.valid || !fileImage || !fileLogo">Crear tienda</ion-button>
+            </ion-col>    
           </ion-row>
         </ion-grid>
       

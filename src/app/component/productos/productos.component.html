@@ -3,7 +3,7 @@
     <ion-list>
       <ion-item class="border-input">
         <ion-label>Seleccionar tienda</ion-label>
-        <ion-select [(ngModel)]="shopSelect" [interfaceOptions]="shopOptions" interface="alert" placeholder="Seleccionar..." (ionChange)="loadProduct()">
+        <ion-select [(ngModel)]="shopSelect" [interfaceOptions]="shopOptions" interface="alert" placeholder="Seleccionar..." (ionChange)="loadProduct(1)">
           <ion-select-option value="{{item.id}}" *ngFor="let item of shop">{{item.name}}</ion-select-option>
         </ion-select>        
         <ion-icon name="storefront-outline" slot="start"></ion-icon>
@@ -11,9 +11,9 @@
     </ion-list>
   </ion-card-header>
   <ion-card-content>
-    <ion-grid>
+    <ion-grid *ngIf="products.length > 0">
       <ion-row class="filter-group">
-        <ion-col size-md="6">
+        <ion-col size-md="4">
           <ion-item>
             <ion-input
                 inputmode="search"
@@ -24,6 +24,19 @@
             <ion-icon name="search-outline" slot="start"></ion-icon>
           </ion-item>
           
+        </ion-col>
+        <ion-col size-md="2">
+          <ion-item>            
+            <ion-select [interfaceOptions]="cantOptions" interface="alert" placeholder="Cantidad" name="Cantidad" (ionChange)="changeCant($event)">
+              <ion-select-option value="10">10</ion-select-option>
+              <ion-select-option value="25">25</ion-select-option>
+              <ion-select-option value="50">50</ion-select-option>
+              <ion-select-option value="100">100</ion-select-option>
+              <ion-select-option value="150">150</ion-select-option>
+              <ion-select-option value="200">200</ion-select-option>
+              <ion-select-option value="250">250</ion-select-option>
+            </ion-select>
+          </ion-item>
         </ion-col>
         <ion-col size-md="2">
           <ion-item>            
@@ -53,10 +66,18 @@
           </ion-item>
         </ion-col>
       </ion-row>
-      <ion-row class="first-row">
-        <ion-col size-md="1" size="12">
-          <ion-checkbox color="primary"></ion-checkbox>
-        </ion-col>      
+      <ion-row class="paginado">
+        <ion-col size-md="12" size="12">
+          <ion-button type="button" color="dark" (click)="last()" size="small" *ngIf="currentPage != 1">
+            <ion-icon name="chevron-back-outline"></ion-icon>
+          </ion-button>        
+          <ion-button size="small" type="button" color="{{item.color}}" *ngFor="let item of cantPages" (click)="loadProduct(item.page)">{{item.page}}</ion-button>
+          <ion-button size="small" type="button" color="dark" (click)="next()" *ngIf="currentPage < cantPages.length">
+            <ion-icon name="chevron-forward-outline"></ion-icon>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+      <ion-row class="first-row">             
         <ion-col size-md="5" size="12">
           Producto
         </ion-col>
@@ -67,18 +88,17 @@
           Hoja PDF
         </ion-col>
         <ion-col size-md="2" size="12">
-          Activar
+          Acción
         </ion-col>
-      </ion-row>
-      <ion-row class="align-items-center" *ngFor="let item of products">
+      </ion-row>      
+      <ion-row class="align-items-center" *ngFor="let item of products">        
         <ion-col size-md="1" size="12">
-          <ion-checkbox color="primary"></ion-checkbox>
-        </ion-col>
-        <ion-col size-md="1" size="12">
-          <img src="{{item.featured_src}}" class="imgProduct"/>
+          <img src="{{item.images[0].src}}" class="imgProduct"/>
         </ion-col>
         <ion-col size-md="4" size="12">
-          {{item.title}}
+          {{item.name}}<br>
+          <b>SKU: </b>{{item.sku}}<br>
+          <b>ID: </b>{{item.id}}
         </ion-col>
         <ion-col size-md="2" size="12">
           <div *ngFor="let itemPage of valPage(item.id)">
@@ -96,7 +116,18 @@
           
         </ion-col>
         <ion-col size-md="1" size="12">
-          {{item.title}}
+          <ion-button *ngIf="valPage(item.id).length > 0" type="button" color="warning" (click)="edit(item)">Edit</ion-button>
+        </ion-col>
+      </ion-row>
+      <ion-row class="paginado">
+        <ion-col size-md="12" size="12">
+          <ion-button type="button" color="dark" (click)="last()" size="small" *ngIf="currentPage != 1">
+            <ion-icon name="chevron-back-outline"></ion-icon>
+          </ion-button>        
+          <ion-button size="small" type="button" color="{{item.color}}" *ngFor="let item of cantPages" (click)="loadProduct(item.page)">{{item.page}}</ion-button>
+          <ion-button size="small" type="button" color="dark" (click)="next()" *ngIf="currentPage < cantPages.length">
+            <ion-icon name="chevron-forward-outline"></ion-icon>
+          </ion-button>
         </ion-col>
       </ion-row>
     </ion-grid>    

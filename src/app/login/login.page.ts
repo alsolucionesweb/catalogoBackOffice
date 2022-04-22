@@ -74,7 +74,7 @@ export class LoginPage implements OnInit {
         if(resp.status){        
           this.api.token = resp.token;
           this.menu.style.display = "block";
-          this.router.navigate(['/folder/Inbox']);
+          this.router.navigate(['/folder/Dashboard']);
           loading.dismiss();
           
         }else{
