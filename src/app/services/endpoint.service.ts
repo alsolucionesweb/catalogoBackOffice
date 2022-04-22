@@ -5,7 +5,8 @@ import { Injectable } from '@angular/core';
 })
 export class EndpointService {
   //urlDev:String = "http://localhost:3000/api/";
-  urlDev:String = "https://rocky-hollows-10760.herokuapp.com/api/";
+  //urlDev:String = "https://rocky-hollows-10760.herokuapp.com/api/";
+  urlDev:String = "https://restapiboletin.herokuapp.com/api/";
 
   constructor() { }  
 
